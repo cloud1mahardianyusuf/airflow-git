@@ -55,10 +55,10 @@ x-airflow-common:
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:Yusuf123@postgres/airflow
     # For backward compatibility, with Airflow <2.3
-    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:airflow@postgres/airflow
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:airflow@postgres/airflow
+    AIRFLOW__CORE__SQL_ALCHEMY_CONN: postgresql+psycopg2://airflow:Yusuf123@postgres/airflow
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://airflow:Yusuf123@postgres/airflow
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
@@ -89,12 +89,12 @@ x-airflow-common:
 
 services:
   postgres:
-    image: postgres:13
+    image: postgres:15
     ports:
       - "5885:5432"
     environment:
       POSTGRES_USER: airflow
-      POSTGRES_PASSWORD: airflow
+      POSTGRES_PASSWORD: Yusuf123
       POSTGRES_DB: airflow
     volumes:
       - ${AIRFLOW_PROJ_DIR:-.}/postgres_data:/var/lib/postgresql/data
@@ -104,7 +104,7 @@ services:
       retries: 5
       start_period: 5s
     restart: always
-
+  
   redis:
     image: redis:latest
     expose:
@@ -299,6 +299,3 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-
-#volumes:
-#  postgres-db-volume:
