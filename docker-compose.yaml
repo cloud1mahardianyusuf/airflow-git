@@ -90,6 +90,7 @@ x-airflow-common:
 services:
   postgres:
     image: postgres:15
+    container_name: postgres-airflow
     ports:
       - "5885:5432"
     environment:
